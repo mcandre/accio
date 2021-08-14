@@ -32,6 +32,10 @@ accio automates away the low level `go get` / `git checkout` commands involved i
 
 Notably, accio's own runtime stack is small, requiring no other programming languages or scripts to operate.
 
+# LICENSE
+
+FreeBSD
+
 # RUNTIME REQUIREMENTS
 
 * [Go](https://golang.org/) 1.13+
