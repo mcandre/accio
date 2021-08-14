@@ -41,6 +41,10 @@ FreeBSD
 * [Go](https://golang.org/) 1.13+
 * [git](https://git-scm.com/) 2.25+
 
+# DOCUMENTATION
+
+https://godoc.org/github.com/mcandre/accio
+
 # INSTALL FROM SOURCE
 
 ```console
