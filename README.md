@@ -20,6 +20,10 @@ accio processes packages recursively.
 
 See `accio -help` for more options.
 
+## Configuration
+
+For more detail on managing Go development packages, see [CONFIGURATION.md](CONFIGURATION.md).
+
 # ABOUT
 
 Buildtime dependency tools like golint, Mage, shadow, and so on involve executable artifacts, which `go mod` unfortunately silently ignores. Fortunately, we have accio to manage these kinds of dependencies.
