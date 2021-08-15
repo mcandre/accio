@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	"path"
 
+	"github.com/Masterminds/vcs"
 	"gopkg.in/yaml.v2"
 )
 
@@ -76,45 +77,62 @@ func Load() (*Config, error) {
 	return &config, nil
 }
 
-// CheckoutVersion applies the configured version onto the local clone for a given package.
-func (o Config) CheckoutVersion(pkg Package) error {
-	cmd := exec.Command("git")
-	cmd.Args = []string{"git", "fetch", "--all"}
-	cmd.Env = os.Environ()
-	cmd.Dir = pkg.destination
-	cmd.Stderr = os.Stderr
-
+// InstallConfig acquires a toolset.
+func (o Config) InstallPackage(pkg Package) error {
 	if o.Debug {
-		cmd.Stdout = os.Stdout
+		log.Printf("Installing package %s\n", pkg.Get)
 	}
 
-	if o.Debug {
-		log.Printf("Command: %v\n", cmd)
+	_, err := os.Stat(pkg.destination)
+
+	noSuchDirectory := os.IsNotExist(err)
+
+	var remote string
+
+	if noSuchDirectory {
+		if pkg.URL != "" {
+			remote = pkg.URL
+		} else {
+			remote = fmt.Sprintf("https://%s", pkg.Get)
+		}
 	}
 
-	if err := cmd.Run(); err != nil {
+	destination := path.Clean(pkg.destination)
+
+	var repo vcs.Repo
+
+	for {
+		repo, err = vcs.NewRepo(remote, destination)
+
+		if err == nil {
+			break
+		}
+
+		if err == vcs.ErrCannotDetectVCS {
+			if path.Dir(destination) == destination {
+				break
+			}
+
+			destination = path.Dir(destination)
+		}
+	}
+
+	if err != nil {
 		return err
 	}
 
-	cmd = exec.Command("git")
-	cmd.Args = []string{"git", "checkout", "-f", "--detach", pkg.Version}
-	cmd.Env = os.Environ()
-	cmd.Dir = pkg.destination
-	cmd.Stderr = os.Stderr
-
-	if o.Debug {
-		cmd.Stdout = os.Stdout
+	if noSuchDirectory {
+		if err2 := repo.Get(); err2 != nil {
+			return err2
+		}
 	}
 
-	if o.Debug {
-		log.Printf("Command: %v\n", cmd)
+	if pkg.Version != "" {
+		if err2 := repo.UpdateVersion(pkg.Version); err2 != nil {
+			return err2
+		}
 	}
 
-	return cmd.Run()
-}
-
-// GoInstallPackage builds and places a package using `go install`.
-func (o Config) GoInstallPackage(pkg Package) error {
 	cmd := exec.Command("go")
 	cmd.Args = []string{"go", "install", "./..."}
 	cmd.Env = os.Environ()
@@ -130,89 +148,6 @@ func (o Config) GoInstallPackage(pkg Package) error {
 	}
 
 	return cmd.Run()
-}
-
-// DownloadViaGoSource downloads the source for a given package using `go get`.
-func (o Config) DownloadViaGoSource(pkg Package) error {
-	args := []string{
-		"go",
-		"get",
-		"-d",
-	}
-
-	if pkg.Update {
-		args = append(args, "-u")
-	}
-
-	args = append(args, fmt.Sprintf("%s/...", pkg.Get))
-
-	cmd := exec.Command("go")
-	cmd.Args = args
-	cmd.Env = os.Environ()
-	cmd.Env = append(cmd.Env, "GO111MODULE=off")
-	cmd.Stderr = os.Stderr
-
-	if o.Debug {
-		cmd.Stdout = os.Stdout
-	}
-
-	if o.Debug {
-		log.Printf("Command: %v\n", cmd)
-	}
-
-	if err := cmd.Run(); err != nil {
-		return err
-	}
-
-	if pkg.Version == "" {
-		return nil
-	}
-
-	return o.CheckoutVersion(pkg)
-}
-
-// DownloadViaGitSource acquires the source for a given package using `git`.
-func (o Config) DownloadViaGitSource(pkg Package) error {
-	args := []string{
-		"git",
-		"clone",
-	}
-
-	if pkg.Version != "" {
-		args = append(args, "-b")
-		args = append(args, pkg.Version)
-	}
-
-	args = append(args, pkg.URL)
-	args = append(args, pkg.destination)
-
-	cmd := exec.Command("git")
-	cmd.Args = args
-	cmd.Env = os.Environ()
-	cmd.Stderr = os.Stderr
-
-	if o.Debug {
-		cmd.Stdout = os.Stdout
-	}
-
-	if o.Debug {
-		log.Printf("Command: %v\n", cmd)
-	}
-
-	return cmd.Run()
-}
-
-// InstallConfig acquires a toolset.
-func (o Config) InstallPackage(pkg Package) error {
-	if pkg.URL == "" {
-		if err := o.DownloadViaGoSource(pkg); err != nil {
-			return err
-		}
-	} else if err := o.DownloadViaGitSource(pkg); err != nil {
-		return err
-	}
-
-	return o.GoInstallPackage(pkg)
 }
 
 // Install acquires the configured Go tools.

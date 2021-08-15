@@ -39,7 +39,7 @@ FreeBSD
 # RUNTIME REQUIREMENTS
 
 * [Go](https://golang.org/) 1.13+
-* [git](https://git-scm.com/) 2.25+
+* any version control clients necessary for your development dependency tree (e.g., [git](https://git-scm.com/))
 
 # DOCUMENTATION
 
@@ -56,10 +56,6 @@ $ GO111MODULE=off go get github.com/mcandre/accio/cmd/accio
 ```console
 $ rm "$GOPATH/bin/accio"
 ```
-
-# LIMITATIONS
-
-* `version` overrides are implemented only for dependencies with git VCS repositories available.
 
 # CONTRIBUTING
 

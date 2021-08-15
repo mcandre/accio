@@ -7,10 +7,10 @@ type Package struct {
 	// Example: "golang.org/x/tools/go/analysis/passes/shadow"
 	Get string
 
-	// URL denotes a network path override. (Default: `go get` determined URL)
+	// URL denotes a network path override. (Default: "https://<Get>")
 	//
 	// Example: ""
-	// Example: "https://github.com/golang/tools.git"
+	// Example: "https://github.com/golang/tools"
 	URL string
 
 	// Version denotes a specific version control reference, such as a tag, branch, or commit. (Default: Latest according to `go get` determined cache semantics)
