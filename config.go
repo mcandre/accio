@@ -132,11 +132,12 @@ func (o Config) GoInstallPackage(pkg Package) error {
 	return cmd.Run()
 }
 
-// InstallViaGoSource installs a given package using `go get`.
-func (o Config) InstallViaGoSource(pkg Package) error {
+// DownloadViaGoSource downloads the source for a given package using `go get`.
+func (o Config) DownloadViaGoSource(pkg Package) error {
 	args := []string{
 		"go",
 		"get",
+		"-d",
 	}
 
 	if pkg.Update {
@@ -167,15 +168,11 @@ func (o Config) InstallViaGoSource(pkg Package) error {
 		return nil
 	}
 
-	if err := o.CheckoutVersion(pkg); err != nil {
-		return err
-	}
-
-	return o.GoInstallPackage(pkg)
+	return o.CheckoutVersion(pkg)
 }
 
-// InstallViaGitSource installs a given package using `git`.
-func (o Config) InstallViaGitSource(pkg Package) error {
+// DownloadViaGitSource acquires the source for a given package using `git`.
+func (o Config) DownloadViaGitSource(pkg Package) error {
 	args := []string{
 		"git",
 		"clone",
@@ -202,20 +199,20 @@ func (o Config) InstallViaGitSource(pkg Package) error {
 		log.Printf("Command: %v\n", cmd)
 	}
 
-	if err := cmd.Run(); err != nil {
-		return err
-	}
-
-	return o.GoInstallPackage(pkg)
+	return cmd.Run()
 }
 
 // InstallConfig acquires a toolset.
 func (o Config) InstallPackage(pkg Package) error {
 	if pkg.URL == "" {
-		return o.InstallViaGoSource(pkg)
+		if err := o.DownloadViaGoSource(pkg); err != nil {
+			return err
+		}
+	} else if err := o.DownloadViaGitSource(pkg); err != nil {
+		return err
 	}
 
-	return o.InstallViaGitSource(pkg)
+	return o.GoInstallPackage(pkg)
 }
 
 // Install acquires the configured Go tools.
