@@ -32,6 +32,14 @@ accio automates away the low level `go get` / `git checkout` commands involved i
 
 Notably, accio's own runtime stack is small, requiring no other programming languages or scripts to operate.
 
+# WARNINGS
+
+accio overwrites the directories `$GOPATH/src/<your tool dependencies>` when provisioning your configured Go tools. If you contribute to your development tools, take care to regularly push your changes to a remote repository. There is an inherent risk that any local, unpushed changes may be overwritten by `accio -install`.
+
+For this reason, it is recommended to not bootstrap your project's development by depending on itself in terms of tooling. Nor depend on any previous version of itself. Don't create a dependency cycle, which accio may corrupt. Likewise, try not to create an indirect dependency cycle between multiple tools.
+
+Each dev tool should be simple to compile and install from scratch, using plain `go install [./...]` commands. Go packages which do not support the standard `go get` / `go mod` system for building and installing, may not work with accio.
+
 # LICENSE
 
 FreeBSD
