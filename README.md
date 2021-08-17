@@ -48,7 +48,7 @@ https://godoc.org/github.com/mcandre/accio
 # INSTALL FROM SOURCE
 
 ```console
-$ GO111MODULE=off go get github.com/mcandre/accio/cmd/accio
+$ go get github.com/mcandre/accio/cmd/accio
 ```
 
 # UNINSTALL
