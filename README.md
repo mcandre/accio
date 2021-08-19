@@ -48,7 +48,7 @@ https://godoc.org/github.com/mcandre/accio
 # INSTALL FROM SOURCE
 
 ```console
-$ go install github.com/mcandre/accio/cmd/accio
+$ go install github.com/mcandre/accio/cmd/accio@latest
 ```
 
 # UNINSTALL
