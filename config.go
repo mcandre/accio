@@ -136,6 +136,11 @@ func (o Config) InstallPackage(pkg Package) error {
 	cmd := exec.Command("go")
 	cmd.Args = []string{"go", "install", "./..."}
 	cmd.Env = os.Environ()
+
+	if pkg.Go111Module != "" {
+		cmd.Env = append(cmd.Env, fmt.Sprintf("GO111MODULE=%s", pkg.Go111Module))
+	}
+
 	cmd.Dir = pkg.destination
 	cmd.Stderr = os.Stderr
 

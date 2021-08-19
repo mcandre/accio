@@ -7,6 +7,14 @@ type Package struct {
 	// Example: "golang.org/x/tools/go/analysis/passes/shadow"
 	Get string
 
+	// Go111Module propagates a GO111MODULE environment variable. (Optional)
+	//
+	// Example: ""
+	// Example: "auto"
+	// Example: "off"
+	// Example: "on"
+	Go111Module string
+
 	// URL denotes a network path override. (Default: "https://<Get>")
 	//
 	// Example: ""
