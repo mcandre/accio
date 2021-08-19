@@ -1,6 +1,6 @@
 module github.com/mcandre/accio
 
-go 1.13
+go 1.17
 
 require (
 	github.com/Masterminds/vcs v1.13.1
