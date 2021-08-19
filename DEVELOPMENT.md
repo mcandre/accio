@@ -21,9 +21,9 @@ $ accio -install
 # PORT
 
 ```console
-$ FACTORIO_BANNER=accio-0.0.1 factorio
+$ FACTORIO_BANNER=accio-0.0.2 factorio
 
 $ cd bin
 
-$ zip -r accio-0.0.1.zip accio-0.0.1
+$ zip -r accio-0.0.2.zip accio-0.0.2
 ```
