@@ -45,6 +45,10 @@ FreeBSD
 
 https://godoc.org/github.com/mcandre/accio
 
+# DOWNLOAD
+
+https://github.com/mcandre/accio/releases
+
 # INSTALL FROM SOURCE
 
 ```console
