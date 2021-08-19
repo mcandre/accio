@@ -8,7 +8,6 @@ import (
 	"os/exec"
 	"path"
 
-	"github.com/Masterminds/vcs"
 	"gopkg.in/yaml.v2"
 )
 
@@ -60,17 +59,16 @@ func Load() (*Config, error) {
 	config.goPath = goPath
 
 	for i, p := range config.Packages {
-		if p.Get == "" {
-			return nil, errors.New("get cannot be blank")
+		if p.Name == "" {
+			return nil, errors.New("name cannot be blank")
 		}
 
 		if p.Executables == nil {
 			p.Executables = &[]string{
-				path.Base(p.Get),
+				path.Base(p.Name),
 			}
 		}
 
-		p.destination = path.Join(config.goPath, "src", p.Get)
 		config.Packages[i] = p
 	}
 
@@ -79,77 +77,25 @@ func Load() (*Config, error) {
 
 // InstallConfig acquires a toolset.
 func (o Config) InstallPackage(pkg Package) error {
-	if o.Debug {
-		log.Printf("Installing package %s\n", pkg.Get)
-	}
-
-	_, err := os.Stat(pkg.destination)
-
-	noSuchDirectory := os.IsNotExist(err)
-
-	var remote string
-
-	if noSuchDirectory {
-		if pkg.URL != "" {
-			remote = pkg.URL
-		} else {
-			remote = fmt.Sprintf("https://%s", pkg.Get)
-		}
-	}
-
-	destination := path.Clean(pkg.destination)
-
-	var repo vcs.Repo
-
-	for {
-		repo, err = vcs.NewRepo(remote, destination)
-
-		if err == nil {
-			break
-		}
-
-		if err == vcs.ErrCannotDetectVCS {
-			if path.Dir(destination) == destination {
-				break
-			}
-
-			destination = path.Dir(destination)
-		}
-	}
-
-	if err != nil {
-		return err
-	}
-
-	if noSuchDirectory {
-		if err2 := repo.Get(); err2 != nil {
-			return err2
-		}
-	}
+	pin := pkg.Name
 
 	if pkg.Version != "" {
-		if err2 := repo.UpdateVersion(pkg.Version); err2 != nil {
-			return err2
-		}
+		pin = fmt.Sprintf("%s@%s", pkg.Name, pkg.Version)
 	}
 
 	cmd := exec.Command("go")
-	cmd.Args = []string{"go", "install", "./..."}
+	cmd.Args = []string{"go", "install", pin}
 	cmd.Env = os.Environ()
 
 	if pkg.Go111Module != "" {
 		cmd.Env = append(cmd.Env, fmt.Sprintf("GO111MODULE=%s", pkg.Go111Module))
 	}
 
-	cmd.Dir = pkg.destination
 	cmd.Stderr = os.Stderr
 
 	if o.Debug {
 		cmd.Stdout = os.Stdout
-	}
-
-	if o.Debug {
-		log.Printf("Command: %v\n", cmd)
+		log.Printf("command: %v\n", cmd)
 	}
 
 	return cmd.Run()

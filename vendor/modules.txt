@@ -1,6 +1,3 @@
-# github.com/Masterminds/vcs v1.13.1
-## explicit
-github.com/Masterminds/vcs
 # github.com/davecgh/go-spew v1.1.1
 ## explicit
 github.com/davecgh/go-spew/spew
