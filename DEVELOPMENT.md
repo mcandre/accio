@@ -5,10 +5,16 @@
 * Go development tools (`sh acquire`)
 * [zip](https://linux.die.net/man/1/zip)
 
-# INSTALL FROM SOURCE
+# INSTALL
 
 ```console
 $ go install ./...
+```
+
+# UNINSTALL
+
+```console
+$ rm "$GOPATH/bin/accio"
 ```
 
 # TEST
