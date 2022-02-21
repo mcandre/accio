@@ -1,6 +1,10 @@
-# accio: a dependency manager for Go developer tools
+# accio: Go dependency manager
 
 ━☆ﾟ
+
+# SUMMARY
+
+accio extends Go to track buildtime dependencies.
 
 # EXAMPLE
 
