@@ -8,7 +8,7 @@ import (
 	"os/exec"
 	"path"
 
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 // ConfigFilename specifies the basic location of configuration data.
@@ -17,13 +17,13 @@ const ConfigFilename = "accio.yaml"
 // Config controls accio behavior.
 type Config struct {
 	// Debug toggles logging.
-	Debug bool
+	Debug bool `json:"debug" yaml:"debug"`
 
 	// Packages collects development dependencies.
-	Packages []Package
+	Packages []Package `json:"packages" yaml:"packages"`
 
 	// goPath caches the GOPATH environment variable. (Required)
-	goPath string
+	goPath string `json:"-" yaml:"-"`
 }
 
 // Load reads configuration data into memory.
