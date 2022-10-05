@@ -1,6 +1,6 @@
 # BUILDTIME REQUIREMENTS
 
-* [Go](https://golang.org/) 1.17+
+* [Go](https://golang.org/) 1.19+
 * a POSIX compatible shell (e.g., `bash`, `ksh`, `sh`, `zsh`)
 * Go development tools (`sh acquire`)
 
@@ -38,9 +38,9 @@ $ accio -install
 # PORT
 
 ```console
-$ FACTORIO_BANNER=accio-0.0.2 factorio
+$ FACTORIO_BANNER=accio-0.0.3 factorio
 
 $ cd bin
 
-$ zip -r accio-0.0.2.zip accio-0.0.2
+$ zip -r accio-0.0.3.zip accio-0.0.3
 ```
