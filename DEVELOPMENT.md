@@ -10,22 +10,22 @@
 * [snyk](https://www.npmjs.com/package/snyk) 1.996.0 (`npm install -g snyk@1.996.0`)
 * [zip](https://linux.die.net/man/1/zip)
 
-# SECURITY AUDIT
+# AUDIT
 
 ```console
-$ snyk test
+$ mage audit
 ```
 
 # INSTALL
 
 ```console
-$ go install ./...
+$ mage install
 ```
 
 # UNINSTALL
 
 ```console
-$ rm "$GOPATH/bin/accio"
+$ mage uninstall
 ```
 
 # TEST
@@ -38,9 +38,5 @@ $ accio -install
 # PORT
 
 ```console
-$ FACTORIO_BANNER=accio-0.0.3 factorio
-
-$ cd bin
-
-$ zip -r accio-0.0.3.zip accio-0.0.3
+$ mage port
 ```

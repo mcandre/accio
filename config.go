@@ -75,7 +75,7 @@ func Load() (*Config, error) {
 	return &config, nil
 }
 
-// InstallConfig acquires a toolset.
+// InstallPackage acquires a toolset.
 func (o Config) InstallPackage(pkg Package) error {
 	pin := pkg.Name
 
