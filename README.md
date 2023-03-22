@@ -42,7 +42,7 @@ FreeBSD
 
 # RUNTIME REQUIREMENTS
 
-* [Go](https://golang.org/) 1.17+
+* [Go](https://golang.org/) 1.20.2+
 * any version control clients necessary for your development dependency tree (e.g., [git](https://git-scm.com/))
 
 # DOCUMENTATION
