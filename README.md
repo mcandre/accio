@@ -1,6 +1,6 @@
 # accio: Go dependency manager
 
-━☆ﾟ
+━☆
 
 # SUMMARY
 
