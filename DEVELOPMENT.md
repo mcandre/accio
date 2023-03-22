@@ -1,14 +1,13 @@
 # BUILDTIME REQUIREMENTS
 
-* [Go](https://golang.org/) 1.19+
 * a POSIX compatible shell (e.g., `bash`, `ksh`, `sh`, `zsh`)
-* Go development tools (`sh acquire`)
+* [Go](https://golang.org/) 1.19+ with `sh acquire`
+* [Node.js](https://nodejs.org/en) 16.14.2+ with `npm install -g snyk@1.996.0`
 
 ## Recommended
 
 * [ASDF](https://asdf-vm.com/) 0.10
-* [snyk](https://www.npmjs.com/package/snyk) 1.996.0 (`npm install -g snyk@1.996.0`)
-* [zip](https://linux.die.net/man/1/zip)
+* [direnv](https://direnv.net/) 2
 
 # AUDIT
 
