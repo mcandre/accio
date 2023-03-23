@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/magefile/mage v1.14.0
-	github.com/mcandre/mage-extras v0.0.10
+	github.com/mcandre/mage-extras v0.0.11
 	gopkg.in/yaml.v3 v3.0.1
 )
 
