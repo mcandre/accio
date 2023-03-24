@@ -74,3 +74,10 @@ For more information on developing accio itself, see [DEVELOPMENT.md](DEVELOPMEN
 Some tools have not yet updated to use `go mod` (Go v1.11+ modules) for library dependency management. You can customize the package `go111module`, e.g. `go111module: "off"`, which activates the corresponding `GO111MODULE` environment variable configuration for the package.
 
 Go does not support version pins for pre-Go v1.11 module packages.
+
+# SEE ALSO
+
+* [Ansible](https://www.ansible.com/)
+* [Batsh](https://batsh.org/)
+* [Docker](https://www.docker.com/)
+* [tools.go](https://marcofranssen.nl/manage-go-tools-via-go-modules) (fragile)
