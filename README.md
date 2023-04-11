@@ -12,7 +12,11 @@ Optionally, lint the makefile with `unmake` to detect more portability concerns.
 
 https://github.com/mcandre/unmake
 
-Or, if you happen to be using Go dev tools for non-Go projects, then you may already have a provisioning system available. For example, shell script projects can provision Go dev tools in a `./script`. (You may want to lint these with bashate, ShellCheck, shfmt, and stank.)
+Or, if you happen to be using Go dev tools for non-Go projects, then you may already have a provisioning system available.
+
+For example, shell script projects can provision Go dev tools in a `./script`. (You may want to lint these with bashate, ShellCheck, shfmt, and stank.)
+
+For example, C/C++ projects that use a makefile directly and some Go dev tools, may introduce a `make` provisioning task. Though cmake projects would want to avoid writing makefiles, which would risks colliding with cmake build files. I guess use shell script provisioning like `./install`, or rez, or nobuild, or some other C/C++ provisioning system.
 
 # SUMMARY
 
