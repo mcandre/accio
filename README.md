@@ -1,6 +1,14 @@
 # accio: Go dependency manager
 
-━☆
+# DEPRECATED
+
+Recommend provisioning Go dev tools, or most any programming language dev tools for that matter, using a simple `all` task in a conventional `makefile`.
+
+Try to write only dirt simple `go install`..., `pip3 install`..., `cargo install`... commands in the `makefil`. That way, your dev provisioning `makefile` script is more likely to succeed on other platforms.
+
+Optionally, lint the makefile with `unmake` to detect more portability concerns.
+
+https://github.com/mcandre/unmake
 
 # SUMMARY
 
