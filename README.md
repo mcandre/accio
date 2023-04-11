@@ -16,7 +16,7 @@ Or, if you happen to be using Go dev tools for non-Go projects, then you may alr
 
 For example, shell script projects can provision Go dev tools in a `./script`. (You may want to lint these with bashate, ShellCheck, shfmt, and stank.)
 
-For example, C/C++ projects that use a makefile directly and some Go dev tools, may introduce a `make` provisioning task. Though cmake projects would want to avoid writing makefiles, which would risks colliding with cmake build files. I guess use shell script provisioning like `./install`, or rez, or nobuild, or some other C/C++ provisioning system.
+For example, C/C++ projects that use a makefile directly and some Go dev tools, may introduce a `make` provisioning task. Though autotools and cmake projects would want to avoid writing makefiles, which would risks colliding with cmake build files. I guess use shell script provisioning like `./install`, or rez, or nobuild, or some other C/C++ provisioning system. The same applies to Perl projects that use makefiles generated from `Makefile.PL` scripts.
 
 # SUMMARY
 
