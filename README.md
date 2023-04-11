@@ -4,11 +4,15 @@
 
 Recommend provisioning Go dev tools, or most any programming language dev tools for that matter, using a simple `all` task in a conventional `makefile`.
 
-Try to write only dirt simple `go install`..., `pip3 install`..., `cargo install`... commands in the `makefil`. That way, your dev provisioning `makefile` script is more likely to succeed on other platforms.
+Be sure to followup your `go install`... commands with `go mod tidy` (and `modvendor -copy="**/*.h **/*.c **/*.hpp **/*.cpp"` in certain Cgo projects).
+
+Try to write only dirt simple `go install`..., `pip3 install`..., `cargo install`... commands in the `makefile`. That way, your dev provisioning `makefile` script is more likely to succeed on other platforms.
 
 Optionally, lint the makefile with `unmake` to detect more portability concerns.
 
 https://github.com/mcandre/unmake
+
+Or, if you happen to be using Go dev tools for non-Go projects, then you may already have a provisioning system available. For example, shell script projects can provision Go dev tools in a `./script`. (You may want to lint these with bashate, ShellCheck, shfmt, and stank.)
 
 # SUMMARY
 
